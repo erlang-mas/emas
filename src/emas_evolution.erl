@@ -13,16 +13,6 @@
 %% API functions
 %% ====================================================================
 
-%% @doc This function implements an all-vs-all fight between agents.
-%% It returns the list of agents after the fight.
-%% -spec each_fights_all([agent()]) -> [agent()].
-%% each_fights_all([]) -> [];
-%%
-%% each_fights_all([H|T]) ->
-%%     {NewH,NewT} = one_fights_rest(H,T,[]),
-%%     [NewH | each_fights_all(NewT)].
-
-
 %% @doc The fight logic for a pair of agents.
 %% It returns a list of both agents updated after the fight.
 -spec do_fight({agent()} | {agent(), agent()}, sim_params()) -> [agent()].
@@ -71,15 +61,3 @@ optional_pairs([], Acc) -> Acc;
 optional_pairs([A], Acc) -> [{A} | Acc];
 
 optional_pairs([A, B | L], Acc) -> optional_pairs(L, [{A, B} | Acc]).
-
-%% ====================================================================
-%% Internal functions
-%% ====================================================================
-%%
-%% %% @doc Executes the doFight/1 function between agent A and every other agent from the ToFight list.
-%% -spec one_fights_rest(Agent::agent(), ToFight::[agent()], Fought::[agent()]) -> {agent(),[agent()]}.
-%% one_fights_rest(Agent,[],Fought) -> {Agent,Fought};
-%%
-%% one_fights_rest(Agent,[H|ToFight],Fought) ->
-%%     [NewAgent,NewH]  = do_fight({Agent,H}),
-%%     one_fights_rest(NewAgent,ToFight,[NewH|Fought]).

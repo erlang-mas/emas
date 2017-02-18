@@ -5,7 +5,7 @@ DEPS=erts kernel stdlib
 
 ERL=erl
 
-REBAR=./rebar
+REBAR=rebar
 
 .PHONY: all compile doc clean test dialyzer typer shell distclean pdf \
 	update-deps
@@ -27,7 +27,6 @@ doc:
 	$(REBAR) skip_deps=true doc
 
 test: all
-	./run_tests.sh
 	make dialyzer
 
 $(DEPS_PLT):

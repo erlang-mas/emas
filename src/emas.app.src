@@ -1,19 +1,29 @@
-%%%-------------------------------------------------------------------
-%%% @author jstypka
-%%% @copyright (C) 2014, <COMPANY>
-%%% @doc
-%%%
-%%% @end
-%%% Created : 15. paź 2014 17:38
-%%%-------------------------------------------------------------------
 {application, emas, [
-    {description, "EMAS algorithm application"},
-    {vsn, "0.1"},
+    {description, "Evolutionary multi agent framework"},
+    {vsn, "0.1.0"},
     {registered, []},
     {applications, [
         kernel,
         stdlib,
-        mas
+        exometer_core
     ]},
-    {env, []}
+    {env,
+     [
+      {genetic_ops, emas_test_ops},
+      {problem_size, 100},
+      {initial_energy, 10},
+      {reproduction_threshold, 11},
+      {reproduction_transfer, 5},
+      {fight_transfer, 10},
+      {mutation_rate, 0.1},
+      {mutation_range, 0.05},
+      {mutation_chance, 0.75},
+      {recombination_chance, 0.3},
+      {fight_number, 2}
+     ]
+    },
+    {modules, []},
+    {maintainers, ["Bartosz Zurkowski"]},
+    {licenses, ["MIT"]},
+    {links, []}
 ]}.

@@ -1,0 +1,33 @@
+[
+ {mas,
+  [
+   {population_behaviour, emas_population},
+   {population_count, 2},
+   {population_size, 100},
+   {topology, mesh},
+   {migration_probability, 0.05},
+   {node_migration_probability, 0},
+   {nodes_topology, mesh},
+   {write_interval, 1000},
+   {logs_dir, "/logs/emas"}
+  ]
+ },
+
+ {emas,
+  [
+   {genetic_ops, emas_test_ops},
+   {problem_size, 100},
+   {initial_energy, 10},
+   {reproduction_threshold, 11},
+   {reproduction_transfer, 5},
+   {fight_transfer, 10},
+   {mutation_rate, 0.1},
+   {mutation_range, 0.05},
+   {mutation_chance, 0.75},
+   {recombination_chance, 0.3},
+   {fight_number, 2},
+   {write_interval, 1000},
+   {logs_dir, "/logs/emas"}
+  ]
+ }
+].

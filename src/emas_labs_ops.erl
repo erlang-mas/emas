@@ -11,7 +11,7 @@
 %% @doc Generates a random solution.
 -spec solution(sim_params()) -> solution().
 solution(SP) ->
-    [random:uniform(2)-1 || _ <- lists:seq(1, SP#sim_params.problem_size)].
+    [rand:uniform(2)-1 || _ <- lists:seq(1, SP#sim_params.problem_size)].
 
 
 %% @doc Evaluates a given solution. Higher is better.
@@ -29,7 +29,7 @@ recombination(S1, S2, _SP) ->
 -spec mutation(solution(), sim_params()) -> solution().
 mutation(Solution, SP) ->
     lists:map(fun(X) ->
-                      case random:uniform() < SP#sim_params.mutation_rate of
+                      case rand:uniform() < SP#sim_params.mutation_rate of
                           true -> fnot(X);
                           _ -> X
                       end
@@ -53,7 +53,7 @@ energy(Solution) ->
 -spec recombination_features(float(), float()) -> {float(), float()}.
 recombination_features(F, F) -> {F, F};
 recombination_features(F1, F2) ->
-    case random:uniform() < 0.5 of
+    case rand:uniform() < 0.5 of
         true -> {F1, F2};
         false -> {F2, F1}
     end.

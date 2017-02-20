@@ -29,7 +29,7 @@ evaluation(S, SP) ->
 -spec reproduction(solution(), sim_params()) -> solution().
 reproduction(S, SP) ->
     Ops = SP#sim_params.genetic_ops,
-    case random:uniform() < SP#sim_params.mutation_chance of
+    case rand:uniform() < SP#sim_params.mutation_chance of
         true -> Ops:mutation(S, SP);
         false -> S
     end.
@@ -38,15 +38,15 @@ reproduction(S, SP) ->
 -spec reproduction(solution(), solution(), sim_params()) -> [solution()].
 reproduction(S1, S2, SP) ->
     Ops = SP#sim_params.genetic_ops,
-    {R1, R2} = case random:uniform() < SP#sim_params.recombination_chance of
+    {R1, R2} = case rand:uniform() < SP#sim_params.recombination_chance of
                    true -> Ops:recombination(S1, S2, SP);
                    false -> {S1, S2}
                end,
-    M1 = case random:uniform() < SP#sim_params.mutation_chance of
+    M1 = case rand:uniform() < SP#sim_params.mutation_chance of
              true -> Ops:mutation(R1, SP);
              false -> R1
          end,
-    M2 = case random:uniform() < SP#sim_params.mutation_chance of
+    M2 = case rand:uniform() < SP#sim_params.mutation_chance of
              true -> Ops:mutation(R2, SP);
              false -> R2
          end,

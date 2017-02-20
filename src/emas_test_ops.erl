@@ -12,7 +12,7 @@
 %% @doc Generates a random solution, as a vector of numbers in the range [-50, 50].
 -spec solution(sim_params()) -> solution().
 solution(SP) ->
-    S = [-50 + random:uniform() * 100 || _ <- lists:seq(1, SP#sim_params.problem_size)],
+    S = [-50 + rand:uniform() * 100 || _ <- lists:seq(1, SP#sim_params.problem_size)],
     erlang:term_to_binary(S).
 
 %% @doc Evaluates a given solution by computing the Rastrigin function.
@@ -33,8 +33,8 @@ recombination(B1, B2, _SP) ->
 -spec mutation(solution(), sim_params()) -> solution().
 mutation(B, SP) ->
     S = erlang:binary_to_term(B),
-    NrGenesMutated = mas_misc_util:average_number(SP#sim_params.mutation_rate, S),
-    Indexes = [random:uniform(length(S)) || _ <- lists:seq(1, NrGenesMutated)], % indices may be duplicated
+    NrGenesMutated = emas_utils:average_number(SP#sim_params.mutation_rate, S),
+    Indexes = [rand:uniform(length(S)) || _ <- lists:seq(1, NrGenesMutated)], % indices may be duplicated
     Mut = mutate_genes(S, lists:usort(Indexes), 1, [], SP), % usort removes duplicates
     erlang:term_to_binary(Mut).
 
@@ -52,7 +52,7 @@ config() ->
 recombination_features(F1, F2) ->
     A = erlang:min(F1, F2),
     B = (erlang:max(F1, F2) - erlang:min(F1, F2)),
-    {A + random:uniform() * B,A + random:uniform() * B}.
+    {A + rand:uniform() * B,A + rand:uniform() * B}.
 
 %% @doc Actually mutates a given feature.
 mutate_genes(RestOfSolution, [], _, Acc, _SP) ->
@@ -67,9 +67,9 @@ mutate_genes([Gene|Solution], [I|Indexes], Inc, Acc, SP) ->
 %% @doc Actually mutates a given feature.
 -spec mutate_feature(float(), sim_params()) -> float().
 mutate_feature(F, SP) ->
-    Range = SP#sim_params.mutation_range * case random:uniform() of
+    Range = SP#sim_params.mutation_range * case rand:uniform() of
                                          X when X < 0.2 -> 5.0;
                                          X when X < 0.4 -> 0.2;
                                          _ -> 1.0
                                      end,
-    F + Range * math:tan(math:pi()*(random:uniform() - 0.5)).
+    F + Range * math:tan(math:pi()*(rand:uniform() - 0.5)).

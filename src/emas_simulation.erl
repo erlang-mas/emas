@@ -69,6 +69,7 @@ unsubscribe_metrics() ->
 %%------------------------------------------------------------------------------
 %% @private
 %%------------------------------------------------------------------------------
+extract_best_solution([]) -> none;
 extract_best_solution(Agents) ->
    ArgMax = fun (A = {_, F, _}, {_, AccF, _}) when F > AccF ->
                     A;

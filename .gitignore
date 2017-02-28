@@ -22,3 +22,4 @@ doc
 priv
 compile_commands.json
 emas
+rebar3

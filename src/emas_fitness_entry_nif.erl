@@ -27,8 +27,11 @@
 
 -spec init() -> ok.
 init() ->
-    SOName = filename:join([priv, ?LIBNAME]),
-    ok = erlang:load_nif(SOName, 0).
+    SOPath = case os:getenv("NIF_DIR") of
+                 false -> filename:join(priv, ?LIBNAME);
+                 Path  -> filename:join(Path, ?LIBNAME)
+             end,
+    ok = erlang:load_nif(SOPath, 0).
 
 -spec behaviour() -> exometer:behaviour().
 behaviour() ->

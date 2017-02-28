@@ -7,24 +7,24 @@
 
 -include_lib("emas.hrl").
 
-%%% API functions
--export([start/1]).
+%%% API
+-export([main/1, start/1]).
 
 %%%=============================================================================
 %%% API functions
 %%%=============================================================================
 
-start(Time) ->
-    application:ensure_all_started(emas),
-    SP = emas_config:fetch_all(),
-    setup_exometer(SP),
-    subscribe_metrics(SP),
-    application:start(mas),
-    timer:sleep(Time),
-    {agents, Agents} = mas:get_results(),
-    application:stop(mas),
-    unsubscribe_metrics(),
-    extract_best_solution(Agents).
+main([]) ->
+    usage();
+main(Args) ->
+    OptSpecList = option_spec_list(),
+    case getopt:parse(OptSpecList, Args) of
+        {ok, {Opts, _NonOptArgs}} ->
+            start(Opts);
+        {error, {Reason, Data}} ->
+            io:format("Error: ~s ~p~n~n", [Reason, Data]),
+            usage()
+    end.
 
 %%%=============================================================================
 %%% Internal functions
@@ -33,36 +33,71 @@ start(Time) ->
 %%------------------------------------------------------------------------------
 %% @private
 %%------------------------------------------------------------------------------
-setup_exometer(SP) ->
-    exometer_report:add_reporter(exometer_report_fs,
-                                 [{base_dir, SP#sim_params.logs_dir}]),
-    exometer_admin:set_default(['_'], emas_fitness_entry_nif,
-                               [{module, emas_fitness_entry_nif}]).
+start(Opts) ->
+    application:load(mas),
+    application:load(emas),
+    application:set_env(mas, population_mod, emas_population),
+    application:set_env(mas, simulation_mod, emas_simulation),
+    setup_app_env(mas, Opts),
+    setup_app_env(emas, Opts),
+    SP = emas_config:fetch_all(),
+    {time, Time} = proplists:lookup(time, Opts),
+    mas:start(),
+    mas:start_simulation(SP, Time),
+    handle_result().
 
 %%------------------------------------------------------------------------------
 %% @private
 %%------------------------------------------------------------------------------
-subscribe_metrics(SP) ->
-    Metric = [global, fitness],
-    exometer:new(Metric, emas_fitness_entry_nif, []),
-    exometer_report:subscribe(exometer_report_fs, Metric, fitness,
-                              SP#sim_params.write_interval).
+setup_app_env(App, Opts) ->
+    Props = [element(1, Spec) || Spec <- option_spec_list(App)],
+    [set_app_prop(App, proplists:lookup(Prop, Opts)) || Prop <- Props].
 
 %%------------------------------------------------------------------------------
 %% @private
 %%------------------------------------------------------------------------------
-unsubscribe_metrics() ->
-    Metric = [global, fitness],
-    exometer_report:unsubscribe_all(exometer_report_fs, Metric).
-    % exometer:delete(Metric).
+set_app_prop(App, {Key, Value}) ->
+    application:set_env(App, Key, Value);
+set_app_prop(_App, none) -> none.
 
 %%------------------------------------------------------------------------------
 %% @private
 %%------------------------------------------------------------------------------
-extract_best_solution(Agents) ->
-    ArgMax = fun (A = {_, F, _}, {_, AccF, _}) when F > AccF ->
-                     A;
-                 (_, Acc) ->
-                     Acc
-             end,
-    {_Sol, _Fit, _Energy} = lists:foldl(ArgMax, hd(Agents), tl(Agents)).
+handle_result() ->
+    receive
+        {result, Result} ->
+            io:format("Simulation result: ~p~n", [Result]);
+        {error, Reason} ->
+            io:format("Error: ~p~n", [Reason]);
+        _ -> io:format("Unknown simulation result~n", [])
+    end.
+
+%%------------------------------------------------------------------------------
+%% @private
+%%------------------------------------------------------------------------------
+usage() ->
+    getopt:usage(option_spec_list(), escript:script_name()).
+
+%%------------------------------------------------------------------------------
+%% @private
+%%------------------------------------------------------------------------------
+option_spec_list() ->
+    Spec = option_spec_list(mas) ++ option_spec_list(emas),
+    lists:usort(Spec).
+
+%%------------------------------------------------------------------------------
+%% @private
+%%------------------------------------------------------------------------------
+option_spec_list(mas) ->
+    [
+     {population_count,             $i,         "population-count",             integer,    "Number of populations (islands)"},
+     {population_size,              undefined,  "population-size",              integer,    "Size of single population"},
+     {migration_probability,        undefined,  "migration-probability",        float,      "Migration probability"},
+     {node_migration_probability,   undefined,  "node-migration-probability",   float,      "Node migration probability"},
+     {logs_dir,                     $o,         "output",                       string,     "Logs output directory"}
+    ];
+option_spec_list(emas) ->
+    [
+     {time,     $t, "time",     integer,    "Duration of the simulation"},
+     {logs_dir, $o, "output",   string,     "Logs output directory"}
+    ].

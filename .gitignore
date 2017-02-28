@@ -19,3 +19,4 @@ emas.config
 doc
 .hosts.erlang
 priv
+emas

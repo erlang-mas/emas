@@ -19,7 +19,8 @@
       {mutation_range, 0.05},
       {mutation_chance, 0.75},
       {recombination_chance, 0.3},
-      {fight_number, 2}
+      {fight_number, 2},
+      {write_interval, 1000}
      ]
     },
     {modules, []},

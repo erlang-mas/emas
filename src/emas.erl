@@ -34,6 +34,7 @@ main(Args) ->
 %% @private
 %%------------------------------------------------------------------------------
 start(Opts) ->
+    setup_distribution(Opts),
     application:load(mas),
     application:load(emas),
     application:set_env(mas, population_mod, emas_population),
@@ -41,7 +42,7 @@ start(Opts) ->
     setup_app_env(mas, Opts),
     setup_app_env(emas, Opts),
     SP = emas_config:fetch_all(),
-    {time, Time} = proplists:lookup(time, Opts),
+    Time = get_opt(time, Opts),
     mas:start(),
     mas:start_simulation(SP, Time),
     handle_result().
@@ -59,6 +60,22 @@ setup_app_env(App, Opts) ->
 set_app_prop(App, {Key, Value}) ->
     application:set_env(App, Key, Value);
 set_app_prop(_App, none) -> none.
+
+%%------------------------------------------------------------------------------
+%% @private
+%%------------------------------------------------------------------------------
+setup_distribution(Opts) ->
+    NodeName = get_opt(sname, Opts),
+    Cookie = get_opt(cookie, Opts),
+    {ok, _} = net_kernel:start([list_to_atom(NodeName), shortnames]),
+    true = erlang:set_cookie(node(), list_to_atom(Cookie)).
+
+%%------------------------------------------------------------------------------
+%% @private
+%%------------------------------------------------------------------------------
+get_opt(Key, Opts) ->
+    {Key, Value} = proplists:lookup(Key, Opts),
+    Value.
 
 %%------------------------------------------------------------------------------
 %% @private
@@ -94,6 +111,8 @@ option_spec_list(mas) ->
      {population_size,              undefined,  "population-size",              integer,    "Size of single population"},
      {migration_probability,        undefined,  "migration-probability",        float,      "Migration probability"},
      {node_migration_probability,   undefined,  "node-migration-probability",   float,      "Node migration probability"},
+     {sname,                        undefined,  "sname",                        string,     "Distributed node shortname"},
+     {cookie,                       $o,         "cookie",                       string,     "Distribution cookie"},
      {logs_dir,                     $o,         "output",                       string,     "Logs output directory"}
     ];
 option_spec_list(emas) ->

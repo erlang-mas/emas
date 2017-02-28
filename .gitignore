@@ -2,6 +2,7 @@
 _*
 .eunit
 *.o
+*.d
 *.beam
 *.plt
 *.swp
@@ -19,4 +20,5 @@ emas.config
 doc
 .hosts.erlang
 priv
+compile_commands.json
 emas

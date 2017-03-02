@@ -117,6 +117,5 @@ option_spec_list(mas) ->
     ];
 option_spec_list(emas) ->
     [
-     {time,     $t, "time",     integer,    "Duration of the simulation"},
-     {logs_dir, $o, "output",   string,     "Logs output directory"}
+     {time, $t, "time", integer, "Duration of the simulation"}
     ].

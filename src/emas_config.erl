@@ -51,7 +51,5 @@ fetch_all() ->
         mutation_range          = get_env(mutation_range),
         mutation_chance         = get_env(mutation_chance),
         recombination_chance    = get_env(recombination_chance),
-        fight_number            = get_env(fight_number),
-        logs_dir                = get_env(logs_dir),
-        write_interval          = get_env(write_interval)
+        fight_number            = get_env(fight_number)
     }.

@@ -22,8 +22,8 @@
 %% @private
 %%------------------------------------------------------------------------------
 simulation_setup(SP) ->
-    setup_exometer(SP),
-    subscribe_metrics(SP).
+    setup_exometer(),
+    subscribe_metrics().
 
 %%------------------------------------------------------------------------------
 %% @private
@@ -44,25 +44,23 @@ simulation_result(_SP, Agents) ->
 %%------------------------------------------------------------------------------
 %% @private
 %%------------------------------------------------------------------------------
-setup_exometer(SP) ->
-    mas_reporter:setup(SP#sim_params.logs_dir),
+setup_exometer() ->
     exometer_admin:set_default(['_'], emas_fitness_entry_nif,
                               [{module, emas_fitness_entry_nif}]).
 
 %%------------------------------------------------------------------------------
 %% @private
 %%------------------------------------------------------------------------------
-subscribe_metrics(SP) ->
+subscribe_metrics() ->
     Metric = [global, fitness],
-    exometer:new(Metric, emas_fitness_entry_nif, []),
-    exometer_report:subscribe(exometer_report_fs, Metric, fitness,
-                              SP#sim_params.write_interval).
+    mas_reporter:subscribe(Metric, emas_fitness_entry_nif, fitness).
 
 %%------------------------------------------------------------------------------
 %% @private
 %%------------------------------------------------------------------------------
 unsubscribe_metrics() ->
     Metric = [global, fitness],
+    % mas_reporter:unsubscribe(Metric).
     exometer_report:unsubscribe_all(exometer_report_fs, Metric).
     % exometer:delete(Metric).
 

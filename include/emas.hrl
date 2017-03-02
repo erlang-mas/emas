@@ -9,6 +9,4 @@
                      mutation_chance         :: float(),
                      recombination_chance    :: float(),
                      fight_number            :: pos_integer(),
-                     extra                   :: term(),
-                     logs_dir                :: string(),
-                     write_interval          :: pos_integer()}).
+                     extra                   :: term()}).

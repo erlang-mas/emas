@@ -1,5 +1,5 @@
 %%%-----------------------------------------------------------------------------
-%%% @doc Starts MAS simulation, gathers results and extracts best solution.
+%%% @doc EMAS runner script.
 %%% @end
 %%%-----------------------------------------------------------------------------
 
@@ -50,6 +50,19 @@ start(Opts) ->
 %%------------------------------------------------------------------------------
 %% @private
 %%------------------------------------------------------------------------------
+setup_distribution(Opts) ->
+    {ok, _} = net_kernel:start([generate_node_name(), shortnames]).
+
+%%------------------------------------------------------------------------------
+%% @private
+%%------------------------------------------------------------------------------
+generate_node_name() ->
+    Name = emas_utils:format("emas-~2..0B", [rand:uniform(100)]),
+    list_to_atom(Name).
+
+%%------------------------------------------------------------------------------
+%% @private
+%%------------------------------------------------------------------------------
 setup_app_env(App, Opts) ->
     Props = [element(1, Spec) || Spec <- option_spec_list(App)],
     [set_app_prop(App, proplists:lookup(Prop, Opts)) || Prop <- Props].
@@ -64,18 +77,8 @@ set_app_prop(_App, none) -> none.
 %%------------------------------------------------------------------------------
 %% @private
 %%------------------------------------------------------------------------------
-setup_distribution(Opts) ->
-    NodeName = get_opt(sname, Opts),
-    Cookie = get_opt(cookie, Opts),
-    {ok, _} = net_kernel:start([list_to_atom(NodeName), shortnames]),
-    true = erlang:set_cookie(node(), list_to_atom(Cookie)).
-
-%%------------------------------------------------------------------------------
-%% @private
-%%------------------------------------------------------------------------------
 get_opt(Key, Opts) ->
-    {Key, Value} = proplists:lookup(Key, Opts),
-    Value.
+    proplists:get_value(Key, Opts).
 
 %%------------------------------------------------------------------------------
 %% @private
@@ -111,8 +114,6 @@ option_spec_list(mas) ->
      {population_size,              undefined,  "population-size",              integer,    "Size of single population"},
      {migration_probability,        undefined,  "migration-probability",        float,      "Migration probability"},
      {node_migration_probability,   undefined,  "node-migration-probability",   float,      "Node migration probability"},
-     {sname,                        undefined,  "sname",                        string,     "Distributed node shortname"},
-     {cookie,                       $o,         "cookie",                       string,     "Distribution cookie"},
      {logs_dir,                     $o,         "output",                       string,     "Logs output directory"}
     ];
 option_spec_list(emas) ->

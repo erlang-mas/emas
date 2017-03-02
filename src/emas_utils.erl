@@ -5,8 +5,9 @@
 
 -module(emas_utils).
 
-%% API
--export([average_number/2]).
+%%% API
+-export([average_number/2,
+         format/2]).
 
 %%%=============================================================================
 %%% API functions
@@ -14,7 +15,7 @@
 
 %%------------------------------------------------------------------------------
 %% @doc Computes an average number of elements that are chosen with given
-%% probability.
+%%      probability.
 %%------------------------------------------------------------------------------
 average_number(Probability, List) ->
     case Probability * length(List) of
@@ -28,3 +29,10 @@ average_number(Probability, List) ->
         N when N >= 1 ->
             trunc(N)
     end.
+
+%%------------------------------------------------------------------------------
+%% @doc Returns string that represents data formatted in accordance with
+%%      pattern.
+%%------------------------------------------------------------------------------
+format(Pattern, Data) ->
+    lists:flatten(io_lib:format(Pattern, Data)).

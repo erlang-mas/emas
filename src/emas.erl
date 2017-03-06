@@ -57,7 +57,7 @@ setup_distribution(Opts) ->
 %% @private
 %%------------------------------------------------------------------------------
 generate_node_name() ->
-    Name = emas_utils:format("emas-~2..0B", [rand:uniform(100)]),
+    Name = emas_utils:format("emas-~3..0B", [rand:uniform(100)]),
     list_to_atom(Name).
 
 %%------------------------------------------------------------------------------

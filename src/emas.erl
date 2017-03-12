@@ -114,6 +114,8 @@ option_spec_list(mas) ->
      {population_size,              undefined,  "population-size",              integer,    "Size of single population"},
      {migration_probability,        undefined,  "migration-probability",        float,      "Migration probability"},
      {node_migration_probability,   undefined,  "node-migration-probability",   float,      "Node migration probability"},
+     {topology,                     $t,         "topology",                     atom,       "Topology of connections between populations"},
+     {nodes_topology,               undefined,  "nodes-topology",               atom,       "Topology of connections between nodes"},
      {logs_dir,                     $o,         "output",                       string,     "Logs output directory"}
     ];
 option_spec_list(emas) ->

@@ -16,6 +16,7 @@
 %%------------------------------------------------------------------------------
 %% @doc Computes an average number of elements that are chosen with given
 %%      probability.
+%% @end
 %%------------------------------------------------------------------------------
 average_number(Probability, List) ->
     case Probability * length(List) of
@@ -33,6 +34,7 @@ average_number(Probability, List) ->
 %%------------------------------------------------------------------------------
 %% @doc Returns string that represents data formatted in accordance with
 %%      pattern.
+%% @end
 %%------------------------------------------------------------------------------
 format(Pattern, Data) ->
     lists:flatten(io_lib:format(Pattern, Data)).

@@ -120,6 +120,7 @@ option_spec_list(mas) ->
     ];
 option_spec_list(emas) ->
     [
-     {time,         $t, "time",         integer,    "Duration of the simulation"},
-     {problem_size, $s, "problem-size", integer,    "Problem size"}
+     {time,         $t,         "time",         integer,    "Duration of the simulation"},
+     {problem_size, $s,         "problem-size", integer,    "Problem size"},
+     {genetic_ops,  undefined,  "genetic-ops",  atom,       "Genetic operators module"}
     ].

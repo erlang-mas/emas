@@ -22,7 +22,7 @@
   2},
  {<<"mas">>,
   {git,"https://github.com/erlang-mas/mas.git",
-       {ref,"a615bfd5e08f079aa3b7241b51f0a8ba4bfd8f43"}},
+       {ref,"31dfbfd27cdb8f7d8dbc887b1ce53806b94d67ee"}},
   0},
  {<<"meck">>,
   {git,"git://github.com/eproxus/meck.git",

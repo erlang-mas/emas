@@ -9,7 +9,7 @@
     ]},
     {env,
      [
-      {genetic_ops, emas_test_ops},
+      {genetic_ops, emas_rastrigin_ops},
       {problem_size, 100},
       {initial_energy, 10},
       {reproduction_threshold, 11},

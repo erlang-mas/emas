@@ -38,7 +38,7 @@ Which will download and compile all necessary dependencies and the project itsel
 
 ## How to run the project
 
-To run the project you need to implement problem-specific operators, which define the function that EMAS will optimise. Repository also includes an `emas_test_ops.erl` module which provides test operators that enable to run and test EMAS itself.
+To run the project you need to implement problem-specific operators, which define the function that EMAS will optimise. Repository also includes an `emas_rastrigin_ops.erl` module which provides test operators that enable to run and test EMAS itself.
 
 
 You can run `emas` run script which is located in the project root. The script has two obligatory parameters:
@@ -48,7 +48,7 @@ You can run `emas` run script which is located in the project root. The script h
 
 By default, the program will write all its results to stdout, so you can see if everything is configured correctly.
 
-E.g. To run a simulation for 30 seconds with `mas_hybrid` model with default genetic operators (`emas_test_ops`) one should run:
+E.g. To run a simulation for 30 seconds with `mas_hybrid` model with default genetic operators (`emas_rastrigin_ops`) one should run:
 
     > ./emas --time 30000 --model mas_hybrid
 

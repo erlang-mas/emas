@@ -24,7 +24,7 @@
  {<<"lager">>,{pkg,<<"lager">>,<<"3.2.4">>},1},
  {<<"mas">>,
   {git,"https://github.com/erlang-mas/mas.git",
-       {ref,"b3fe778f3b9a3bbd23798549e0fb2ac5d5f95cd6"}},
+       {ref,"1ff582fe097fe76dea5580f465b86cfcfd71b2b5"}},
   0},
  {<<"meck">>,
   {git,"git://github.com/eproxus/meck.git",

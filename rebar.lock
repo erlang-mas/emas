@@ -16,13 +16,15 @@
        {ref,"38e2cce7c64ce1f0a3a918d90394cfc0a940b1ba"}},
   2},
  {<<"getopt">>,{pkg,<<"getopt">>,<<"0.8.2">>},0},
+ {<<"goldrush">>,{pkg,<<"goldrush">>,<<"0.1.9">>},2},
  {<<"hut">>,
   {git,"git://github.com/tolbrino/hut.git",
        {ref,"025540398478ab6f95932c3234382ac5bb21ad3e"}},
   2},
+ {<<"lager">>,{pkg,<<"lager">>,<<"3.2.4">>},1},
  {<<"mas">>,
   {git,"https://github.com/erlang-mas/mas.git",
-       {ref,"a3a71e9cfb0d8eba8069980c67236897d8eb0866"}},
+       {ref,"b3fe778f3b9a3bbd23798549e0fb2ac5d5f95cd6"}},
   0},
  {<<"meck">>,
   {git,"git://github.com/eproxus/meck.git",
@@ -38,5 +40,7 @@
   2}]}.
 [
 {pkg_hash,[
- {<<"getopt">>, <<"B17556DB683000BA50370B16C0619DF1337E7AF7ECBF7D64FBF8D1D6BCE3109B">>}]}
+ {<<"getopt">>, <<"B17556DB683000BA50370B16C0619DF1337E7AF7ECBF7D64FBF8D1D6BCE3109B">>},
+ {<<"goldrush">>, <<"F06E5D5F1277DA5C413E84D5A2924174182FB108DABB39D5EC548B27424CD106">>},
+ {<<"lager">>, <<"A6DEB74DAE7927F46BD13255268308EF03EB206EC784A94EAF7C1C0F3B811615">>}]}
 ].

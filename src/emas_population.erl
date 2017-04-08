@@ -13,7 +13,8 @@
 -export([initial_agent/1,
          behaviour/2,
          behaviours/0,
-         meeting/2]).
+         meeting/2,
+         energy/1]).
 
 %%%=============================================================================
 %%% MAS population callbacks
@@ -36,6 +37,9 @@ behaviour({_, _, Energy}, #sim_params{reproduction_threshold = RT}) ->
         true  -> reproduction;
         false -> fight
     end.
+
+
+energy({_, _, Energy}) -> Energy.
 
 %%------------------------------------------------------------------------------
 %% @private

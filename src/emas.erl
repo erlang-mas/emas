@@ -44,6 +44,8 @@ start(Opts) ->
     SP = emas_config:fetch_all(),
     Time = get_opt(time, Opts),
     mas:start(),
+    lager:set_loglevel(lager_console_backend, debug),
+    lager:set_loglevel(lager_file_backend, "log/console.log", debug),
     mas:start_simulation(SP, Time),
     handle_result().
 

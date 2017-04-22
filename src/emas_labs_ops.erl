@@ -4,10 +4,6 @@
 
 -include("emas.hrl").
 
--type sim_params() :: emas:sim_params().
--type solution() :: emas:solution([0 | 1]).
-
-
 %% @doc Generates a random solution.
 -spec solution(sim_params()) -> solution().
 solution(SP) ->

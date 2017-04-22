@@ -2,6 +2,8 @@
                      problem_size            :: pos_integer(),
                      initial_energy          :: integer(),
                      reproduction_threshold  :: integer(),
+                     migration_threshold     :: integer(),
+                     migration_probability   :: float(),
                      reproduction_transfer   :: integer(),
                      fight_transfer          :: integer(),
                      mutation_rate           :: float(),
@@ -10,3 +12,7 @@
                      recombination_chance    :: float(),
                      fight_number            :: pos_integer(),
                      extra                   :: term()}).
+
+-type agent()        :: any().
+-type sim_params()   :: #sim_params{}.
+-type solution()     :: any().

@@ -2,12 +2,9 @@
 %% @version 1.0
 %% @doc A module with evolutionary functions which transform one generation into another, including migrations.
 -module(emas_evolution).
--export([do_reproduce/2, do_fight/2, optional_pairs/2]).
+-export([do_reproduce/2, do_fight/2]).
 
 -include ("emas.hrl").
-
--type agent() :: emas:agent().
--type sim_params() :: emas:sim_params().
 
 %% ====================================================================
 %% API functions
@@ -51,13 +48,3 @@ do_reproduce({{SolA, EvA, EnA}, {SolB, EvB, EnB}}, SP) ->
      {SolB, EvB, EnB - BtoDTransfer},
      {SolC, EvC, AtoCTransfer},
      {SolD, EvD, BtoDTransfer}].
-
-
-%% @doc Splits agents into pairs with an optional single remainder.
--spec optional_pairs([agent()], [{agent(), agent()}]) ->
-                            [{agent(), agent()} | {agent()}].
-optional_pairs([], Acc) -> Acc;
-
-optional_pairs([A], Acc) -> [{A} | Acc];
-
-optional_pairs([A, B | L], Acc) -> optional_pairs(L, [{A, B} | Acc]).

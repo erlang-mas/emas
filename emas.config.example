@@ -1,7 +1,8 @@
 [
  {mas,
   [
-   {population_behaviour, emas_population},
+   {population_mod, emas_population},
+   {simulation_mod, emas_simulation},
    {population_count, 2},
    {population_size, 100},
    {topology, mesh},
@@ -19,6 +20,7 @@
    {problem_size, 100},
    {initial_energy, 10},
    {reproduction_threshold, 11},
+   {migration_threshold, 19},
    {reproduction_transfer, 5},
    {fight_transfer, 10},
    {mutation_rate, 0.1},

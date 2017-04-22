@@ -5,7 +5,7 @@
 
 -module(emas).
 
--include_lib("emas.hrl").
+-include("emas.hrl").
 
 %%% API
 -export([main/1, start/1]).

@@ -23,8 +23,9 @@
          metrics/2,
          terminate/2]).
 
--record(state, {initial_energy  :: integer(),
-                sim_params      :: sim_params()}).
+-record(state, {initial_energy          :: integer(),
+                sim_params              :: sim_params(),
+                migration_probability   :: float()}).
 
 %%%=============================================================================
 %%% MAS population callbacks
@@ -56,10 +57,9 @@ behaviours() ->
 %%------------------------------------------------------------------------------
 behaviour({_, _, 0}, _State) ->
     death;
-behaviour({_, _, Energy}, #state{sim_params = SP}) ->
-    #sim_params{reproduction_threshold = RT,
-                migration_threshold = MT,
-                migration_probability = MP} = SP,
+behaviour({_, _, Energy}, State) ->
+    #state{sim_params = SP, migration_probability = MP} = State,
+    #sim_params{reproduction_threshold = RT, migration_threshold = MT} = SP,
     case Energy of
         E when E < RT -> fight;
         E when E < MT -> reproduction;
@@ -88,11 +88,8 @@ apply_behaviour(reproduction, Agents,  #state{sim_params = SP}) ->
 %% @private
 %%------------------------------------------------------------------------------
 preprocess(Agents, State) ->
-    #state{initial_energy = InitialEnergy, sim_params = SP} = State,
-    CurrentEnergy = total_energy(Agents),
-    MP = migration_probability(CurrentEnergy, InitialEnergy),
-    NewSP = SP#sim_params{migration_probability = MP},
-    {Agents, State#state{sim_params = NewSP}}.
+    MP = migration_probability(Agents, State),
+    {Agents, State#state{migration_probability = MP}}.
 
 %%------------------------------------------------------------------------------
 %% @private
@@ -120,10 +117,13 @@ terminate(_Agents, _State) ->
 %%------------------------------------------------------------------------------
 %% @private
 %%------------------------------------------------------------------------------
-migration_probability(CurrentEnergy, InitialEnergy) ->
+migration_probability(Agents, State) ->
+    #state{initial_energy = InitialEnergy, sim_params = SP} = State,
+    #sim_params{migration_probability = MP} = SP,
+    CurrentEnergy = total_energy(Agents),
     case CurrentEnergy / InitialEnergy of
         E when E < 0.8 -> 0.0;
-        E when E < 1.2 -> 0.01;
+        E when E < 1.2 -> MP;
         E when E >= 1.2 -> 0.1
     end.
 

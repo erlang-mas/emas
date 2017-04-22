@@ -6,7 +6,7 @@
    {population_count, 2},
    {population_size, 100},
    {topology, mesh},
-   {migration_probability, 0.05},
+   {migration_probability, 0.01},
    {node_migration_probability, 0},
    {nodes_topology, mesh},
    {write_interval, 1000},

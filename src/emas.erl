@@ -50,7 +50,7 @@ start(Opts) ->
 %%------------------------------------------------------------------------------
 %% @private
 %%------------------------------------------------------------------------------
-setup_distribution(Opts) ->
+setup_distribution(_Opts) ->
     {ok, _} = net_kernel:start([generate_node_name(), shortnames]).
 
 %%------------------------------------------------------------------------------
@@ -112,7 +112,6 @@ option_spec_list(mas) ->
     [
      {population_count,             $i,         "population-count",             integer,    "Number of populations (islands)"},
      {population_size,              undefined,  "population-size",              integer,    "Size of single population"},
-     {migration_probability,        undefined,  "migration-probability",        float,      "Migration probability"},
      {node_migration_probability,   undefined,  "node-migration-probability",   float,      "Node migration probability"},
      {topology,                     $t,         "topology",                     atom,       "Topology of connections between populations"},
      {nodes_topology,               undefined,  "nodes-topology",               atom,       "Topology of connections between nodes"},
@@ -120,7 +119,8 @@ option_spec_list(mas) ->
     ];
 option_spec_list(emas) ->
     [
-     {time,         $t,         "time",         integer,    "Duration of the simulation"},
-     {problem_size, $s,         "problem-size", integer,    "Problem size"},
-     {genetic_ops,  undefined,  "genetic-ops",  atom,       "Genetic operators module"}
+     {time,                     $t,         "time",                     integer,    "Duration of the simulation"},
+     {problem_size,             $s,         "problem-size",             integer,    "Problem size"},
+     {genetic_ops,              undefined,  "genetic-ops",              atom,       "Genetic operators module"},
+     {migration_probability,    undefined,  "migration-probability",    float,      "Migration probability"}
     ].

@@ -14,6 +14,7 @@
       {initial_energy, 10},
       {reproduction_threshold, 11},
       {migration_threshold, 19},
+      {migration_probability, 0.01},
       {reproduction_transfer, 5},
       {fight_transfer, 10},
       {mutation_rate, 0.1},

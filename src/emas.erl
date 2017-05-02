@@ -5,7 +5,7 @@
 
 -module(emas).
 
--include_lib("emas.hrl").
+-include("emas.hrl").
 
 %%% API
 -export([main/1, start/1]).
@@ -38,7 +38,6 @@ start(Opts) ->
     application:load(mas),
     application:load(emas),
     application:set_env(mas, population_mod, emas_population),
-    application:set_env(mas, simulation_mod, emas_simulation),
     setup_app_env(mas, Opts),
     setup_app_env(emas, Opts),
     SP = emas_config:fetch_all(),
@@ -112,7 +111,6 @@ option_spec_list(mas) ->
     [
      {population_count,             $i,         "population-count",             integer,    "Number of populations (islands)"},
      {population_size,              undefined,  "population-size",              integer,    "Size of single population"},
-     {migration_probability,        undefined,  "migration-probability",        float,      "Migration probability"},
      {node_migration_probability,   undefined,  "node-migration-probability",   float,      "Node migration probability"},
      {topology,                     $t,         "topology",                     atom,       "Topology of connections between populations"},
      {nodes_topology,               undefined,  "nodes-topology",               atom,       "Topology of connections between nodes"},
@@ -120,7 +118,8 @@ option_spec_list(mas) ->
     ];
 option_spec_list(emas) ->
     [
-     {time,         $t,         "time",         integer,    "Duration of the simulation"},
-     {problem_size, $s,         "problem-size", integer,    "Problem size"},
-     {genetic_ops,  undefined,  "genetic-ops",  atom,       "Genetic operators module"}
+     {time,                     $t,         "time",                     integer,    "Duration of the simulation"},
+     {problem_size,             $s,         "problem-size",             integer,    "Problem size"},
+     {genetic_ops,              undefined,  "genetic-ops",              atom,       "Genetic operators module"},
+     {migration_probability,    undefined,  "migration-probability",    float,      "Migration probability"}
     ].

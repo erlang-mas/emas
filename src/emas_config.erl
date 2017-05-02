@@ -45,11 +45,13 @@ fetch_all() ->
         problem_size            = get_env(problem_size),
         initial_energy          = get_env(initial_energy),
         reproduction_threshold  = get_env(reproduction_threshold),
+        migration_threshold     = get_env(migration_threshold),
         reproduction_transfer   = get_env(reproduction_transfer),
         fight_transfer          = get_env(fight_transfer),
         mutation_rate           = get_env(mutation_rate),
         mutation_range          = get_env(mutation_range),
         mutation_chance         = get_env(mutation_chance),
         recombination_chance    = get_env(recombination_chance),
+        migration_probability   = get_env(migration_probability),
         fight_number            = get_env(fight_number)
     }.

@@ -5,9 +5,6 @@
 
 -include ("emas.hrl").
 
--type sim_params() :: mas:sim_params().
--type solution() :: emas:solution().
-
 -callback solution(sim_params()) ->
     solution().
 

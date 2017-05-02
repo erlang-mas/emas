@@ -11,14 +11,17 @@
      [
       {genetic_ops, emas_rastrigin_ops},
       {problem_size, 100},
+      {population_size, 100},
       {initial_energy, 10},
       {reproduction_threshold, 11},
+      {migration_threshold, 19},
       {reproduction_transfer, 5},
       {fight_transfer, 10},
       {mutation_rate, 0.1},
       {mutation_range, 0.05},
       {mutation_chance, 0.75},
       {recombination_chance, 0.3},
+      {migration_probability, 0.2},
       {fight_number, 2}
      ]
     },

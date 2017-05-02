@@ -92,7 +92,7 @@ best_fitness(Agents) ->
 %% @private
 %%------------------------------------------------------------------------------
 determine_behaviours(Agents, State = #state{sim_params = SP}) ->
-    MP = SP#sim_params.migration_probability,
+    MP = migration_probability(Agents, State),
     [{behaviour(Agent, SP, MP), Agent} || Agent <- Agents].
 
 %%------------------------------------------------------------------------------
@@ -152,6 +152,22 @@ fetch_arena(Behaviour, Arenas) ->
     case lists:keyfind(Behaviour, 1, Arenas) of
         {_, Agents} -> Agents;
         false -> []
+    end.
+
+%%------------------------------------------------------------------------------
+%% @private
+%%------------------------------------------------------------------------------
+migration_probability(Agents, State) ->
+    #state{initial_energy = InitialEnergy,
+           sim_params = SP} = State,
+    #sim_params{migration_probability = MP} = SP,
+    CurrentEnergy = total_energy(Agents),
+    case CurrentEnergy / InitialEnergy of
+        E when E < 0.8 -> 0.0;
+        E when E < 0.9 -> 0.5 * MP;
+        E when E < 1.1 -> MP;
+        E when E < 1.2 -> 1.5 * MP;
+        E when E >= 1.2 -> 2 * MP
     end.
 
 %%------------------------------------------------------------------------------

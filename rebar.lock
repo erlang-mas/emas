@@ -4,7 +4,7 @@
  {<<"lager">>,{pkg,<<"lager">>,<<"3.2.4">>},1},
  {<<"mas">>,
   {git,"https://github.com/erlang-mas/mas.git",
-       {ref,"c07b0fe343af384849f763d03c6681c72877ca2b"}},
+       {ref,"c4e7f61028a91143d523d5438447ead95a590d5f"}},
   0}]}.
 [
 {pkg_hash,[

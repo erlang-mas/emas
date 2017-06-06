@@ -34,7 +34,7 @@ main(Args) ->
 %% @private
 %%------------------------------------------------------------------------------
 start(Opts) ->
-    setup_distribution(Opts),
+    setup_distribution(),
     application:load(mas),
     application:load(emas),
     application:set_env(mas, population_mod, emas_population),
@@ -43,13 +43,14 @@ start(Opts) ->
     SP = emas_config:fetch_all(),
     Time = get_opt(time, Opts),
     mas:start(),
+    mas_logger:info("EMAS configuration: ~p", [emas_config:get_all()]),
     mas:start_simulation(SP, Time),
     handle_result().
 
 %%------------------------------------------------------------------------------
 %% @private
 %%------------------------------------------------------------------------------
-setup_distribution(Opts) ->
+setup_distribution() ->
     {ok, _} = net_kernel:start([generate_node_name(), shortnames]).
 
 %%------------------------------------------------------------------------------
@@ -114,7 +115,8 @@ option_spec_list(mas) ->
      {node_migration_probability,   undefined,  "node-migration-probability",   float,      "Node migration probability"},
      {topology,                     $t,         "topology",                     atom,       "Topology of connections between populations"},
      {nodes_topology,               undefined,  "nodes-topology",               atom,       "Topology of connections between nodes"},
-     {logs_dir,                     $o,         "output",                       string,     "Logs output directory"}
+     {logs_dir,                     $o,         "output",                       string,     "Logs output directory"},
+     {debug,                        undefined,  "debug",                        boolean,    "Enables debug mode"}
     ];
 option_spec_list(emas) ->
     [

@@ -163,11 +163,9 @@ migration_probability(Agents, State) ->
     #sim_params{migration_probability = MP} = SP,
     CurrentEnergy = total_energy(Agents),
     case CurrentEnergy / InitialEnergy of
-        E when E < 0.8 -> 0.0;
-        E when E < 0.9 -> 0.5 * MP;
-        E when E < 1.1 -> MP;
-        E when E < 1.2 -> 1.5 * MP;
-        E when E >= 1.2 -> 2 * MP
+        E when E < 0.9 -> 0.0;
+        E when E >= 0.9 ->
+            (98.1 - 217 * E + 120 * E * E) * MP
     end.
 
 %%------------------------------------------------------------------------------

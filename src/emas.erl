@@ -85,7 +85,7 @@ get_opt(Key, Opts) ->
 %%------------------------------------------------------------------------------
 handle_result() ->
     receive
-        {result, Result} ->
+        {results, Result} ->
             io:format("Simulation result: ~p~n", [Result]);
         {error, Reason} ->
             io:format("Error: ~p~n", [Reason]);

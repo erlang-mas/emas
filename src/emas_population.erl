@@ -14,6 +14,7 @@
          init/2,
          step/2,
          measure/2,
+         stop_condition/2,
          terminate/2]).
 
 -record(state, {sim_params          :: sim_params(),
@@ -63,6 +64,15 @@ measure(Agents, State) ->
                {best_fitness, best_fitness(Agents)} | dict:to_list(Counter)],
     NewCounter = mas_counter:reset(Counter),
     {Metrics, State#state{behaviours_counter = NewCounter}}.
+
+%%------------------------------------------------------------------------------
+%% @private
+%%------------------------------------------------------------------------------
+stop_condition(Agents, _State) ->
+    case best_fitness(Agents) of
+        unknown -> false;
+        BestFitness -> BestFitness > -100
+    end.
 
 %%------------------------------------------------------------------------------
 %% @private

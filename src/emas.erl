@@ -172,6 +172,30 @@ option_spec_list(emas) ->
       atom,
       "Genetic operators module"},
 
+     {reproduction_threshold,
+      undefined,
+      "reproduction-threshold",
+      integer,
+      "Reproduction threshold"},
+
+     {migration_threshold,
+      undefined,
+      "migration-threshold",
+      integer,
+      "Migration threshold"},
+
+     {reproduction_transfer,
+      undefined,
+      "reproduction-transfer",
+      integer,
+      "Reproduction transfer"},
+
+     {fight_transfer,
+      undefined,
+      "fight-transfer",
+      integer,
+      "Fight transfer"},
+
      {migration_probability,
       undefined,
       "migration-probability",

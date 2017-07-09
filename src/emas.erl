@@ -110,18 +110,71 @@ option_spec_list() ->
 %%------------------------------------------------------------------------------
 option_spec_list(mas) ->
     [
-     {population_count,             $i,         "population-count",             integer,    "Number of populations (islands)"},
-     {population_size,              undefined,  "population-size",              integer,    "Size of single population"},
-     {node_migration_probability,   undefined,  "node-migration-probability",   float,      "Node migration probability"},
-     {topology,                     $t,         "topology",                     atom,       "Topology of connections between populations"},
-     {nodes_topology,               undefined,  "nodes-topology",               atom,       "Topology of connections between nodes"},
-     {logs_dir,                     $o,         "output",                       string,     "Logs output directory"},
-     {debug,                        undefined,  "debug",                        boolean,    "Enables debug mode"}
+     {population_count,
+      $i,
+      "population-count",
+      integer,
+      "Number of populations (islands)"},
+
+     {population_size,
+      undefined,
+      "population-size",
+      integer,
+      "Size of single population"},
+
+     {node_migration_probability,
+      undefined,
+      "node-migration-probability",
+      float,
+      "Node migration probability"},
+
+     {topology,
+      $t,
+      "topology",
+      atom,
+      "Topology of connections between populations"},
+
+     {nodes_topology,
+      undefined,
+      "nodes-topology",
+      atom,
+      "Topology of connections between nodes"},
+
+     {logs_dir,
+      $o,
+      "output",
+      string,
+      "Logs output directory"},
+
+     {debug,
+      undefined,
+      "debug",
+      boolean,
+      "Enables debug mode"}
     ];
 option_spec_list(emas) ->
     [
-     {time,                     $t,         "time",                     integer,    "Duration of the simulation"},
-     {problem_size,             $s,         "problem-size",             integer,    "Problem size"},
-     {genetic_ops,              undefined,  "genetic-ops",              atom,       "Genetic operators module"},
-     {migration_probability,    undefined,  "migration-probability",    float,      "Migration probability"}
+     {time,
+      $t,
+      "time",
+      integer,
+      "Duration of the simulation"},
+
+     {problem_size,
+      $s,
+      "problem-size",
+      integer,
+      "Problem size"},
+
+     {genetic_ops,
+      undefined,
+      "genetic-ops",
+      atom,
+      "Genetic operators module"},
+
+     {migration_probability,
+      undefined,
+      "migration-probability",
+      float,
+      "Migration probability"}
     ].

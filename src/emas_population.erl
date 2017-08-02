@@ -167,16 +167,8 @@ fetch_arena(Behaviour, Arenas) ->
 %%------------------------------------------------------------------------------
 %% @private
 %%------------------------------------------------------------------------------
-migration_probability(Agents, State) ->
-    #state{initial_energy = InitialEnergy,
-           sim_params = SP} = State,
-    #sim_params{migration_probability = MP} = SP,
-    CurrentEnergy = total_energy(Agents),
-    case CurrentEnergy / InitialEnergy of
-        E when E < 0.9 -> 0.0;
-        E when E >= 0.9 ->
-            (98.1 - 217 * E + 120 * E * E) * MP
-    end.
+migration_probability(_Agents, State) ->
+    State#state.sim_params#sim_params.migration_probability.
 
 %%------------------------------------------------------------------------------
 %% @private

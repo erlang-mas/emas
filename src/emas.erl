@@ -200,5 +200,11 @@ option_spec_list(emas) ->
       undefined,
       "migration-probability",
       float,
-      "Migration probability"}
+      "Migration probability"},
+
+     {stop_fitness,
+      undefined,
+      "stop-fitness",
+      float,
+      "Fitness value for stop condition"}
     ].

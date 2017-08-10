@@ -61,5 +61,6 @@ fetch_all() ->
         mutation_chance         = get_env(mutation_chance),
         recombination_chance    = get_env(recombination_chance),
         migration_probability   = get_env(migration_probability),
-        fight_number            = get_env(fight_number)
+        fight_number            = get_env(fight_number),
+        stop_fitness            = get_env(stop_fitness)
     }.

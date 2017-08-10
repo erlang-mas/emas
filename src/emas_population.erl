@@ -68,10 +68,11 @@ measure(Agents, State) ->
 %%------------------------------------------------------------------------------
 %% @private
 %%------------------------------------------------------------------------------
-stop_condition(Agents, _State) ->
+stop_condition(Agents, State) ->
+    #state{sim_params = SP} = State,
     case best_fitness(Agents) of
         unknown -> false;
-        BestFitness -> BestFitness > -100
+        BestFitness -> BestFitness > SP#sim_params.stop_fitness
     end.
 
 %%------------------------------------------------------------------------------

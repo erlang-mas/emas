@@ -11,6 +11,7 @@
                      recombination_chance    :: float(),
                      migration_probability   :: float(),
                      fight_number            :: pos_integer(),
+                     stop_fitness            :: float(),
                      extra                   :: term()}).
 
 -type agent()        :: any().

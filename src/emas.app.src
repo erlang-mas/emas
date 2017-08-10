@@ -22,7 +22,8 @@
       {mutation_chance, 0.75},
       {recombination_chance, 0.3},
       {migration_probability, 0.2},
-      {fight_number, 2}
+      {fight_number, 2},
+      {stop_fitness, 0.1}
      ]
     },
     {modules, []},
